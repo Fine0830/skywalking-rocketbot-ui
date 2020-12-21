@@ -25,6 +25,7 @@ import Topology from './views/containers/topology/topology.vue';
 import Alarm from './views/containers/alarm.vue';
 import Profile from './views/containers/profile.vue';
 import Log from './views/containers/log.vue';
+import ClientMonitor from '../node_modules/skywalking-client-js/src/index';
 
 Vue.use(Router);
 window.axiosCancel = [];
@@ -73,6 +74,15 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  ClientMonitor.setPerformance({
+    service: 'browser-app',
+    serviceVersion: '1.0.0',
+    pagePath: location.href,
+    useFmp: true,
+  });
+  document.addEventListener('ajaxReadyStateChange', function(e) {
+    console.log(e); // XMLHttpRequest Object
+  });
   const token = window.localStorage.getItem('skywalking-authority');
   if (window.axiosCancel.length !== 0) {
     for (const func of window.axiosCancel) {

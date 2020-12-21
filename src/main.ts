@@ -37,7 +37,9 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import VModal from 'vue-js-modal';
 import { queryOAPTimeInfo } from './utils/localtime';
+import ClientMonitor from '../node_modules/skywalking-client-js/src/index';
 import './assets';
+import axios from 'axios';
 
 Vue.use(eventBus);
 Vue.use(VueI18n);
@@ -46,11 +48,7 @@ Vue.use(VModal, { dialog: true });
 Vue.directive('clickout', clickout);
 Vue.directive('tooltip', tooltip);
 
-Vue.filter(
-  'dateformat',
-  (dataStr: any, pattern: string = 'YYYY-MM-DD HH:mm:ss') =>
-    moment(dataStr).format(pattern),
-);
+Vue.filter('dateformat', (dataStr: any, pattern: string = 'YYYY-MM-DD HH:mm:ss') => moment(dataStr).format(pattern));
 
 const savedLanguage = window.localStorage.getItem('lang');
 let language = navigator.language.split('-')[0];
@@ -72,6 +70,14 @@ if (!window.Promise) {
 }
 
 Vue.config.productionTip = false;
+
+ClientMonitor.register({
+  collector: 'http://test.com',
+  service: 'test-ui',
+  pagePath: '/current/page/name',
+  serviceVersion: 'v1.0.0',
+  axios,
+});
 
 queryOAPTimeInfo().then(() => {
   new Vue({
