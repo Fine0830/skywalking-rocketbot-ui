@@ -14,6 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+const serviceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   devServer: {
@@ -24,6 +26,13 @@ module.exports = {
         changeOrigin: true,
       },
     },
+  },
+  configureWebpack: {
+    plugins: [
+      new serviceWorkerWebpackPlugin({
+        entry: path.join(__dirname, './node_modules/skywalking-client-js/lib/sw.js'),
+      }),
+    ],
   },
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg');

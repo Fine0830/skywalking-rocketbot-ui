@@ -39,7 +39,6 @@ import VModal from 'vue-js-modal';
 import { queryOAPTimeInfo } from './utils/localtime';
 import ClientMonitor from '../node_modules/skywalking-client-js/src/index';
 import './assets';
-import axios from 'axios';
 
 Vue.use(eventBus);
 Vue.use(VueI18n);
@@ -49,7 +48,7 @@ Vue.directive('clickout', clickout);
 Vue.directive('tooltip', tooltip);
 
 Vue.filter('dateformat', (dataStr: any, pattern: string = 'YYYY-MM-DD HH:mm:ss') => moment(dataStr).format(pattern));
-
+// registerServiceworker();
 const savedLanguage = window.localStorage.getItem('lang');
 let language = navigator.language.split('-')[0];
 if (!savedLanguage) {
@@ -72,12 +71,25 @@ if (!window.Promise) {
 Vue.config.productionTip = false;
 
 ClientMonitor.register({
-  collector: 'http://test.com',
-  service: 'test-ui',
-  pagePath: '/current/page/name',
+  collector: 'http://hz.zhangwei.asia:32800',
+  service: 'rocketbot-ui',
+  pagePath: '/dasboard',
   serviceVersion: 'v1.0.0',
-  axios,
+  autoTracePerf: false,
 });
+
+// fetch('/graphql', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     query: "query queryServices($duration: Duration!,$keyword: String!) {\n    services: getAllServices(duration: $duration, group: $keyword) {\n      key: id\n      label: name\n      group\n    }\n  }",
+//     variables: {"duration":{"start":"2020-12-23 1503","end":"2020-12-23 1603","step":"MINUTE"},"keyword":""},
+//   })
+// }).then((data) => {
+//   console.log(data);
+// })
 
 queryOAPTimeInfo().then(() => {
   new Vue({

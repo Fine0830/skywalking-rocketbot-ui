@@ -75,15 +75,13 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   ClientMonitor.setPerformance({
-    service: 'browser-app',
+    collector: 'http://hz.zhangwei.asia:32800',
+    service: 'rocketbot-ui',
     serviceVersion: '1.0.0',
-    pagePath: location.href,
+    pagePath: to.path,
     useFmp: true,
   });
-  document.addEventListener('ajaxReadyStateChange', function(e) {
-    console.log(e); // XMLHttpRequest Object
-  });
-  const token = window.localStorage.getItem('skywalking-authority');
+  // const token = window.localStorage.getItem('skywalking-authority');
   if (window.axiosCancel.length !== 0) {
     for (const func of window.axiosCancel) {
       setTimeout(func(), 0);
