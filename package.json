@@ -29,7 +29,7 @@
     "lodash": "^4.17.15",
     "noty": "^3.2.0-beta",
     "popper.js": "^1.14.7",
-    "skywalking-client-js": "^0.2.0",
+    "skywalking-client-js": "^0.3.0",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
     "vue-i18n": "^8.10.0",
