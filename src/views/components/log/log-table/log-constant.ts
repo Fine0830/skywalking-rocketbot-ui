@@ -17,8 +17,62 @@
 
 export const ServiceLogConstants = [
   {
-    label: '',
-    value: '',
+    label: 'serviceName',
+    value: 'currentService',
+  },
+  {
+    label: 'serviceInstanceName',
+    value: 'currentInstance',
+  },
+  {
+    label: 'timestamp',
+    value: 'time',
+  },
+  {
+    label: 'contentType',
+    value: 'contentType',
+  },
+  {
+    label: 'tags',
+    value: 'tags',
+  },
+  {
+    label: 'content',
+    value: 'content',
+  },
+  {
+    label: 'traceId',
+    value: 'traceID',
+  },
+];
+export const ServiceLogDetail = [
+  {
+    label: 'serviceName',
+    value: 'currentService',
+  },
+  {
+    label: 'serviceInstanceName',
+    value: 'currentInstance',
+  },
+  {
+    label: 'timestamp',
+    value: 'time',
+  },
+  {
+    label: 'contentType',
+    value: 'contentType',
+  },
+  {
+    label: 'traceId',
+    value: 'traceID',
+  },
+  {
+    label: 'tags',
+    value: 'tags',
+  },
+  {
+    label: 'content',
+    value: 'content',
   },
 ];
 // The order of columns should be time, service, error, stack, version, url, catalog, and grade.

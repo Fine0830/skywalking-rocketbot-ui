@@ -75,7 +75,7 @@ limitations under the License. -->
         </div>
         <div>
           <span class="sm b grey mr-5">{{ this.$t('timeRange') }}:</span>
-          <RkDate class="sm" v-model="time" position="bottom" format="YYYY-MM-DD HH:mm:ss" />
+          <RkDate class="sm" v-model="time" position="bottom" format="YYYY-MM-DD HH:mm" />
         </div>
       </div>
       <div class="flex-h">
@@ -89,7 +89,7 @@ limitations under the License. -->
           </span>
           <input
             type="text"
-            :placeholder="this.$t('traceAddTag')"
+            :placeholder="this.$t('addTag')"
             v-model="tags"
             class="rk-trace-new-tag"
             @keyup="addLabels"
@@ -99,11 +99,9 @@ limitations under the License. -->
               target="blank"
               href="https://github.com/apache/skywalking/blob/master/docs/en/setup/backend/configuration-vocabulary.md"
             >
-              {{ this.$t('traceLink') }}
+              {{ this.$t('tagsLink') }}
             </a>
-            <svg class="icon mr-5 vm">
-              <use xlink:href="#help"></use>
-            </svg>
+            <rk-icon icon="help" class="mr-5" />
           </span>
         </div>
       </div>
@@ -116,11 +114,14 @@ limitations under the License. -->
   import { Component, Vue, Watch } from 'vue-property-decorator';
   import { Action, Getter, Mutation, State } from 'vuex-class';
   import TraceSelect from '../common/trace-select.vue';
+  import LogTable from '../log/log-table/log-table.vue';
+  import { State as traceState } from '@/store/modules/trace/index';
+  import { State as globalState } from '@/store/modules/global/index';
 
-  @Component({ components: { TraceSelect } })
+  @Component({ components: { TraceSelect, LogTable } })
   export default class TraceSearch extends Vue {
-    @State('rocketbot') private rocketbotGlobal: any;
-    @State('rocketTrace') private rocketTrace: any;
+    @State('rocketbot') private rocketbotGlobal!: globalState;
+    @State('rocketTrace') private rocketTrace!: traceState;
     @Getter('durationTime') private durationTime: any;
     @Getter('duration') private duration: any;
     @Action('RESET_DURATION') private RESET_DURATION: any;
@@ -160,6 +161,7 @@ limitations under the License. -->
         });
       }
     }
+
     private dateFormat(date: Date, step: string) {
       const year = date.getFullYear();
       const monthTemp = date.getMonth() + 1;
@@ -234,11 +236,11 @@ limitations under the License. -->
         queryDuration: this.globalTimeFormat([
           new Date(
             this.time[0].getTime() +
-              (parseInt(this.rocketbotGlobal.utc, 10) + new Date().getTimezoneOffset() / 60) * 3600000,
+              (parseInt(String(this.rocketbotGlobal.utc), 10) + new Date().getTimezoneOffset() / 60) * 3600000,
           ),
           new Date(
             this.time[1].getTime() +
-              (parseInt(this.rocketbotGlobal.utc, 10) + new Date().getTimezoneOffset() / 60) * 3600000,
+              (parseInt(String(this.rocketbotGlobal.utc), 10) + new Date().getTimezoneOffset() / 60) * 3600000,
           ),
         ]),
         traceState: this.traceState.key,
@@ -270,10 +272,11 @@ limitations under the License. -->
       }
       if (this.tagsList.length) {
         const tagsMap = this.tagsList.map((item: string) => {
-          const t = item.split('=');
+          const key = item.substring(0, item.indexOf('='));
+
           return {
-            key: t[0],
-            value: t[1],
+            key,
+            value: item.substring(item.indexOf('=') + 1, item.length),
           };
         });
         temp.tags = tagsMap;
@@ -329,6 +332,9 @@ limitations under the License. -->
 </script>
 
 <style lang="scss">
+  .rk-log-box {
+    color: #3d444f;
+  }
   .rk-trace-search {
     flex-shrink: 0;
     background-color: #333840;
@@ -389,15 +395,21 @@ limitations under the License. -->
     }
   }
 
-  .rk-trace-search-btn {
+  .rk-trace-search-btn,
+  .rk-trace-log-btn {
     padding: 3px 9px;
     background-color: #484b55;
     border-radius: 4px;
-    margin-top: 12px;
+    color: #eee;
+    font-weight: normal;
+    cursor: pointer;
 
     &.bg-blue {
       background-color: #448dfe;
     }
+  }
+  .rk-trace-search-btn {
+    margin-top: 12px;
   }
 
   .rk-trace-clear-btn {

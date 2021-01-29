@@ -14,23 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import icons from './icons';
 
-import {
-  ProfileSegment,
-  CreateProfileTask,
-  GetProfileTaskList,
-  GetProfileTaskSegmentList,
-  GetProfileAnalyze,
-} from '../fragments/profile';
-
-export const queryProfileSegment = `query queryProfileSegment(${ProfileSegment.variable}) {${ProfileSegment.query}}`;
-
-export const saveProfileTask = `mutation createProfileTask(${CreateProfileTask.variable}) {${CreateProfileTask.query}}`;
-
-export const getProfileTaskList = `query getProfileTaskList(${GetProfileTaskList.variable}) {
-  ${GetProfileTaskList.query}}`;
-
-export const getProfileTaskSegmentList = `query getProfileTaskSegmentList(${GetProfileTaskSegmentList.variable}) {
-  ${GetProfileTaskSegmentList.query}}`;
-
-export const getProfileAnalyze = `query getProfileAnalyze(${GetProfileAnalyze.variable}) {${GetProfileAnalyze.query}}`;
+export default function topoLegend(graph, clientHeight, clientWidth) {
+  for (const item of ['CUBE', 'CUBEERROR']) {
+    graph
+      .append('image')
+      .attr('width', 30)
+      .attr('height', 30)
+      .attr('x', clientWidth - (item === 'CUBEERROR' ? 340 : 440))
+      .attr('y', clientHeight - 50)
+      .attr('xlink:href', () => (item === 'CUBEERROR' ? icons.CUBEERROR : icons.CUBE));
+    graph
+      .append('text')
+      .attr('x', clientWidth - (item === 'CUBEERROR' ? 310 : 410))
+      .attr('y', clientHeight - 30)
+      .text(() => {
+        return item === 'CUBEERROR' ? 'Unhealthy (Successful Rate < 95% and Traffic > 1 call/min)' : 'Healthy';
+      })
+      .style('fill', '#efeff1')
+      .style('font-size', '11px');
+  }
+}

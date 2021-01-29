@@ -40,16 +40,11 @@ limitations under the License. -->
   export default class Trace extends Vue {
     @State('rocketTrace') private stateTrace!: any;
     @Mutation('SET_EVENTS') private SET_EVENTS: any;
-    @Action('rocketTrace/GET_TRACELIST') private GET_TRACELIST: any;
-    @Action('rocketTrace/GET_TRACE_SPANS') private GET_TRACE_SPANS: any;
 
     @Prop({ default: () => ({ label: 'All', key: '' }) })
     private service!: Option;
 
     @Prop({ default: false, type: Boolean })
-    private inTopo!: boolean;
-
-    private show: boolean = true;
     private beforeMount() {
       this.SET_EVENTS([]);
     }

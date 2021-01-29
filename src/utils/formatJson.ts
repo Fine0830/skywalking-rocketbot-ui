@@ -14,23 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import {
-  ProfileSegment,
-  CreateProfileTask,
-  GetProfileTaskList,
-  GetProfileTaskSegmentList,
-  GetProfileAnalyze,
-} from '../fragments/profile';
-
-export const queryProfileSegment = `query queryProfileSegment(${ProfileSegment.variable}) {${ProfileSegment.query}}`;
-
-export const saveProfileTask = `mutation createProfileTask(${CreateProfileTask.variable}) {${CreateProfileTask.query}}`;
-
-export const getProfileTaskList = `query getProfileTaskList(${GetProfileTaskList.variable}) {
-  ${GetProfileTaskList.query}}`;
-
-export const getProfileTaskSegmentList = `query getProfileTaskSegmentList(${GetProfileTaskSegmentList.variable}) {
-  ${GetProfileTaskSegmentList.query}}`;
-
-export const getProfileAnalyze = `query getProfileAnalyze(${GetProfileAnalyze.variable}) {${GetProfileAnalyze.query}}`;
+const censor = (key: any, value: any) => {
+  if (typeof value === 'function') {
+    return Function.prototype.toString.call(value);
+  }
+  return value;
+};
+export const formatJson = (data: JSON) => {
+  return JSON.stringify(data, censor, 2);
+};

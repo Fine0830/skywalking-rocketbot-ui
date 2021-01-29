@@ -33,13 +33,13 @@ limitations under the License. -->
         :rocketGlobal="rocketGlobal"
         :item="i"
         :updateObjects="ObjectsType.UPDATE_DASHBOARD"
+        :rocketOption="stateDashboardOption"
       >
       </DashboardItem>
       <div v-show="rocketGlobal.edit" class="rk-add-dashboard-item g-sm-3" @click="ADD_COMP">
         + Add An Item
       </div>
     </div>
-    <v-dialog width="300px" />
   </div>
 </template>
 
@@ -51,6 +51,9 @@ limitations under the License. -->
   import ToolNav from '@/views/components/dashboard/tool-nav.vue';
   import DashboardItem from '@/views/components/dashboard/dashboard-item.vue';
   import { ObjectsType } from '../../constants/constant';
+  import { State as globalState } from '@/store/modules/global';
+  import { State as optionState } from '@/store/modules/global/selectors';
+  import { State as dataState } from '@/store/modules/dashboard/dashboard-data';
 
   interface ITemplate {
     name: string;
@@ -68,9 +71,9 @@ limitations under the License. -->
     },
   })
   export default class Dashboard extends Vue {
-    @State('rocketbot') private rocketGlobal: any;
-    @State('rocketOption') private stateDashboardOption!: any;
-    @State('rocketData') private rocketComps!: any;
+    @State('rocketbot') private rocketGlobal!: globalState;
+    @State('rocketOption') private stateDashboardOption!: optionState;
+    @State('rocketData') private rocketComps!: dataState;
     @Action('MIXHANDLE_GET_OPTION') private MIXHANDLE_GET_OPTION: any;
     @Action('GET_ALL_TEMPLATES') private GET_ALL_TEMPLATES: any;
     // @Action('ADD_TEMPLATE') private ADD_TEMPLATE: any;

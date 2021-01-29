@@ -1,3 +1,19 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 const m = {
   hourTip: 'Select Hour',
   minuteTip: 'Select Minute',
@@ -155,10 +171,10 @@ const m = {
   defaultOrder: 'Default Order',
   chartType: 'Chart Type',
   currentDepth: 'Current Depth',
-  traceTagsTip:
-    'Only tags defined in the core/default/searchableTagKeys are searchable. Check more details on the Configuration Vocabulary page',
-  traceLink: 'Configuration Vocabulary page',
-  traceAddTag: 'Please add a tag',
+  traceTagsTip: `Only tags defined in the core/default/searchableTracesTags are searchable.
+  Check more details on the Configuration Vocabulary page`,
+  tagsLink: 'Configuration Vocabulary page',
+  addTag: 'Please add a tag',
   log: 'Log',
   logCategory: 'Log Category',
   errorCatalog: 'Error Catalog',
@@ -170,6 +186,18 @@ const m = {
   errorPage: 'Error Page',
   category: 'Category',
   grade: 'Grade',
+  relatedTraceLogs: 'Related Logs',
+  setConditions: 'More Conditions',
+  metricName: 'Metric Name',
+  keywordsOfContent: 'Keys Of Content',
+  excludingKeywordsOfContent: 'Exclude Keys Of Content',
+  return: 'Return',
+  isError: 'Error',
+  contentType: 'Content Type',
+  content: 'Content',
+  viewLogs: 'View Logs',
+  logsTagsTip: `Only tags defined in the core/default/searchableLogsTags are searchable.
+  Check more details on the Configuration Vocabulary page`,
 };
 
 export default m;

@@ -34,21 +34,32 @@ export const QueryBrowserErrorLogs = {
     }`,
 };
 
-export const GetProfileAnalyze = {
-  variable: '$segmentId: String!, $timeRanges: [ProfileAnalyzeTimeRange!]!',
+export const QueryServiceLogs = {
+  variable: '$condition: LogQueryCondition',
   query: `
-  getProfileAnalyze: getProfileAnalyze(segmentId: $segmentId, timeRanges: $timeRanges) {
-    tip
-    trees {
-      elements {
-        id
-        parentId
-        codeSignature
-        duration
-        durationChildExcluded
-        count
-      }
-    }
-  }
-  `,
+    queryLogs(condition: $condition) {
+        logs {
+          serviceName
+          serviceId
+          serviceInstanceName
+          serviceInstanceId
+          endpointName
+          endpointId
+          traceId
+          timestamp
+          contentType
+          content
+          tags {
+            key
+            value
+          }
+        }
+        total
+    }`,
+};
+
+export const QueryLogsByKeywords = {
+  variable: '',
+  query: `
+  support: supportQueryLogsByKeywords`,
 };

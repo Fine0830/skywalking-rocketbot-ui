@@ -49,8 +49,10 @@ const router = new Router({
           component: Dashboard,
         },
         {
+          name: 'trace',
           path: 'trace',
           component: Trace,
+          props: true,
         },
         {
           path: 'topology',
