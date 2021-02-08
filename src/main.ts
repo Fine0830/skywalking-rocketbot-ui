@@ -75,7 +75,7 @@ ClientMonitor.register({
   service: 'rocketbot-ui',
   pagePath: '/dasboard',
   serviceVersion: 'v1.0.0',
-  autoTracePerf: false,
+  autoTracePerf: true,
 });
 
 // fetch('/graphql', {
