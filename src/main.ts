@@ -76,6 +76,7 @@ ClientMonitor.register({
   pagePath: '/dasboard',
   serviceVersion: 'v1.0.0',
   autoTracePerf: true,
+  enableSPA: true,
 });
 
 // fetch('/graphql', {
