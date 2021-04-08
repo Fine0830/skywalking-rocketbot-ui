@@ -82,6 +82,7 @@ router.beforeEach((to, from, next) => {
     serviceVersion: '1.0.0',
     pagePath: to.path,
     useFmp: true,
+    enableSPA: true,
   });
   // const token = window.localStorage.getItem('skywalking-authority');
   if (window.axiosCancel.length !== 0) {
